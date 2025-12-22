@@ -1,13 +1,20 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
-COPY php.ini /usr/local/etc/php/
-
-RUN apt update \
-  && apt install -y default-mysql-client zlib1g-dev libzip-dev unzip \
-  && docker-php-ext-install pdo_mysql zip
-
-RUN curl -sS https://getcomposer.org/installer | php \
-  && mv composer.phar /usr/local/bin/composer \
-  && composer self-update
+RUN apt-get update && apt-get install -y \
+  libzip-dev zip unzip git \
+  && docker-php-ext-install pdo pdo_mysql zip mbstring
 
 WORKDIR /var/www
+
+FROM php:8.1-fpm
+
+# 必要なライブラリをインストール
+RUN apt-get update && apt-get install -y \
+  libfreetype6-dev \
+  libjpeg62-turbo-dev \
+  libpng-dev \
+  libzip-dev \
+  zip \
+  unzip \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install gd pdo pdo_mysql zip
