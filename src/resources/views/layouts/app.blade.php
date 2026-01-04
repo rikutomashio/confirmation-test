@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'FashionablyLate')</title>
+    <meta charset="UTF-8">
+    <title>@yield('title', 'Contact App')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  {{-- CSS --}}
-  <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/common.css') }}">
-  @yield('css')
+    {{-- 共通CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+
+    {{-- 画面別CSS --}}
+    @yield('css')
 </head>
 
-<body>
+<body class="@yield('body-class')">
 
-  {{-- header --}}
-  <header class="header">
-    <div class="header__inner">
-      <h1 class="header__logo">
-        <a href="{{ url('/') }}">FashionablyLate</a>
-      </h1>
-    </div>
-  </header>
+    {{-- =====================
+         ヘッダー
+    ===================== --}}
+    <header class="header">
+        <div class="header__inner">
 
-  {{-- main --}}
-  <main class="main">
-    @yield('content')
-  </main>
+            {{-- ロゴ（常に中央） --}}
+            <div class="header__logo">
+                <a href="/">FashionablyLate</a>
+            </div>
+
+            {{-- 管理画面のみ表示（右端） --}}
+            @if (trim($__env->yieldContent('body-class')) === 'admin')
+                <div class="header__right">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit">ログアウト</button>
+                    </form>
+                </div>
+            @endif
+
+        </div>
+    </header>
+
+    {{-- =====================
+         メイン
+    ===================== --}}
+    <main class="main">
+        @yield('content')
+    </main>
 
 </body>
-
 </html>

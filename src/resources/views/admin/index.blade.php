@@ -1,124 +1,140 @@
 @extends('layouts.app')
 
+@section('body-class', 'admin')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/category.css') }}">
 @endsection
 
 @section('content')
-<div class="category__content">
-  <div class="category__heading">
+<main class="main">
+
+  {{-- 共通見出し --}}
+  <div class="page-heading">
     <h2>Admin</h2>
   </div>
 
-  {{-- 検索フォーム --}}
-<div class="category__search">
-  <h3>検索</h3>
-  <form class="search-form" action="{{ route('admin.contacts.index') }}" method="get">
-    @csrf
-    <div class="search-form__item">
-      <input class="search-form__item-input" type="text" name="keyword" placeholder="名前やメールアドレスを入力" value="{{ request('keyword') }}">
+  {{-- 上段：検索・操作 --}}
+  <div class="category__top">
 
-      <select class="search-form__item-select" name="category_id">
-        <option value="">カテゴリ</option>
-        @foreach ($categories as $category)
-          <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-            {{ $category->category_name }}
-          </option>
-        @endforeach
-      </select>
+    <div class="category__search">
+      <h3>検索</h3>
 
-      <input type="date" name="birthday" value="{{ request('birthday') }}" class="search-form__item-date">
-    </div>
+      {{-- 検索フォーム --}}
+      <form class="search-form" action="{{ route('admin.contacts.index') }}" method="get">
 
-    <div class="search-form__button">
-      <form method="GET" action="{{ route('admin.contacts.index') }}">
-    <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="キーワード">
+        <div class="search-form__item">
+          {{-- キーワード --}}
+          <input
+            type="text"
+            name="keyword"
+            placeholder="名前やメールアドレスを入力"
+            value="{{ request('keyword') }}"
+          >
 
-    <select name="category_id">
-        <option value="">カテゴリ選択</option>
-        @foreach($categories as $category)
-            <option value="{{ $category->id }}"
-                @selected(request('category_id') == $category->id)>
+          {{-- 性別 --}}
+          <select name="gender">
+            <option value="">性別</option>
+            <option value="1" {{ request('gender') == '1' ? 'selected' : '' }}>男性</option>
+            <option value="2" {{ request('gender') == '2' ? 'selected' : '' }}>女性</option>
+            <option value="3" {{ request('gender') == '3' ? 'selected' : '' }}>その他</option>
+          </select>
+
+          {{-- お問い合わせ種別 --}}
+          <select name="category_id">
+            <option value="">お問い合わせ種別</option>
+            @foreach ($categories as $category)
+              <option
+                value="{{ $category->id }}"
+                {{ request('category_id') == $category->id ? 'selected' : '' }}
+              >
                 {{ $category->name }}
-            </option>
-        @endforeach
-    </select>
+              </option>
+            @endforeach
+          </select>
 
-    <button type="submit">検索</button>
-</form>
+          {{-- 生年月日 --}}
+          <input type="date" name="birthday" value="{{ request('birthday') }}">
+        </div>
 
-      <button class="search-form__button-submit" type="submit">検索</button>
-      <a href="{{ route('admin.contacts.index') }}">リセット</a>
+        <div class="search-form__button">
+          <button type="submit">検索</button>
+          <button
+            type="button"
+            onclick="location.href='{{ route('admin.contacts.index') }}'">
+            リセット
+          </button>
+        </div>
+
+      </form>
+
+      {{-- エクスポート --}}
+      <div class="search-form__export">
+        <a href="{{ route('admin.contacts.export') }}">エクスポート</a>
+      </div>
     </div>
 
-    <form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit">ログアウト</button>
-    </form>
-
-
-    <div class="export-button">
-    <a href="{{ route('admin.contacts.export') }}" class="btn btn-success">エクスポート</a>
-    </div>
-
-  </form>
-</div>
-
-
-    {{-- お問い合わせ一覧 --}}
-  <table class="category-table__inner">
-  <tr class="category-table__row">
-    <th>お名前</th>
-    <th>性別</th>
-    <th>メール</th>
-    <th>お問い合わせ種別</th>
-    <th>詳細</th>
-  </tr>
-
-  @forelse ($contacts as $contact)
-  <tr class="category-table__row">
-    <td>{{ $contact->last_name }} {{ $contact->first_name }}</td>
-    <td>{{ $contact->gender == 1 ? '男性' : ($contact->gender == 2 ? '女性' : 'その他') }}</td>
-    <td>{{ $contact->email }}</td>
-    <td>{{ $contact->category->category_name ?? '未設定' }}</td>
-    <td>
-      <a href="{{ route('admin.contacts.show', $contact->id) }}">詳細</a>
-    </td>
-  </tr>
-  @empty
-  <form action="{{ route('admin.contacts.destroy', $contact) }}" method="POST">
-    @csrf
-    @method('DELETE')
-    <button type="submit" onclick="return confirm('削除しますか？')">
-        削除
-    </button>
-  </form>
-
-  <tr>
-    <td colspan="5">データがありません</td>
-  </tr>
-  @endforelse
-</table>
-
-
-
-  {{-- フラッシュメッセージ --}}
-  @if(session('message'))
-  <div class="category__alert--success">
-    {{ session('message') }}
   </div>
-  @endif
 
-  {{-- エラー表示 --}}
-  @if ($errors->any())
-  <div class="category__alert--danger">
-    <ul>
-      @foreach ($errors->all() as $error)
-      <li>{{ $error }}</li>
-      @endforeach
-    </ul>
+  {{-- 一覧テーブル --}}
+  <div class="category-table">
+    <table class="category-table__inner">
+      <thead>
+        <tr class="category-table__row">
+          <th>お名前</th>
+          <th>性別</th>
+          <th>メール</th>
+          <th>お問い合わせ種別</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @forelse ($contacts as $contact)
+          <tr class="category-table__row">
+            <td>{{ $contact->last_name }} {{ $contact->first_name }}</td>
+
+            {{-- 性別表示 --}}
+            <td>
+              {{ $contact->gender == 1 ? '男性' : ($contact->gender == 2 ? '女性' : 'その他') }}
+            </td>
+
+            <td>{{ $contact->email }}</td>
+
+            {{-- お問い合わせ種別 --}}
+            <td>{{ $contact->category->name ?? '未設定' }}</td>
+
+            <td>
+              <a href="{{ route('admin.contacts.show', $contact->id) }}">詳細</a>
+
+              <form
+                action="{{ route('admin.contacts.destroy', $contact) }}"
+                method="POST"
+                style="display:inline"
+              >
+                @csrf
+                @method('DELETE')
+                <button
+                  type="submit"
+                  onclick="return confirm('削除しますか？')">
+                  削除
+                </button>
+              </form>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="5">データがありません</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </table>
   </div>
-  @endif
 
-</div>
+  {{-- ページネーション --}}
+  <div class="pagination">
+    {{ $contacts->links() }}
+  </div>
+
+</main>
 @endsection

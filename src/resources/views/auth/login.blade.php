@@ -1,20 +1,54 @@
 @extends('layouts.app')
 
+@section('title', 'ログイン')
+
+@section('body-class', 'auth')
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+@endsection
+
 @section('content')
-<h2>ログイン</h2>
 
-@if ($errors->any())
-    <p>{{ $errors->first() }}</p>
-@endif
+<div class="auth-wrapper">
 
-<form action="{{ route('login') }}" method="POST">
+  {{-- 見出し --}}
+  <div class="page-heading">
+    <h2>Login</h2>
+  </div>
+
+  {{-- フォーム --}}
+  <form action="{{ route('login') }}" method="POST" class="auth-form">
     @csrf
-    <label>メールアドレス</label>
-    <input type="email" name="email" value="{{ old('email') }}" required>
 
-    <label>パスワード</label>
-    <input type="password" name="password" required>
+    {{-- エラー表示 --}}
+    @if ($errors->any())
+      <ul class="auth-error">
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    @endif
 
-    <button type="submit">ログイン</button>
-</form>
+    {{-- メールアドレス --}}
+    <div class="form-group">
+      <label>メールアドレス</label>
+      <input type="email" name="email" value="{{ old('email') }}">
+    </div>
+
+    {{-- パスワード --}}
+    <div class="form-group">
+      <label>パスワード</label>
+      <input type="password" name="password">
+    </div>
+
+    {{-- ボタン --}}
+    <div class="form-button">
+      <button type="submit">ログイン</button>
+    </div>
+
+  </form>
+
+</div>
+
 @endsection

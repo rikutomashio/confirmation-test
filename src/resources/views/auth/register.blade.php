@@ -1,30 +1,75 @@
 @extends('layouts.app')
 
+@section('title', '会員登録')
+
+@section('body-class', 'auth')
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+@endsection
+
 @section('content')
-<h2>会員登録</h2>
 
-@if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-@endif
+<div class="auth-wrapper">
 
-<form action="{{ route('register') }}" method="POST">
+  {{-- 見出し --}}
+  <div class="page-heading">
+    <h2>Register</h2>
+  </div>
+
+  {{-- フォーム --}}
+  <form action="{{ route('register') }}" method="POST" class="auth-form">
     @csrf
-    <label>名前</label>
-    <input type="text" name="name" value="{{ old('name') }}" required>
 
-    <label>メールアドレス</label>
-    <input type="email" name="email" value="{{ old('email') }}" required>
+    {{-- エラー表示 --}}
+    @if ($errors->any())
+      <ul class="auth-error">
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    @endif
 
-    <label>パスワード</label>
-    <input type="password" name="password" required>
+    {{-- お名前（1つに統合） --}}
+    <div class="form-group">
+      <label for="name">お名前</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="山田 太郎"
+        value="{{ old('name') }}"
+      >
+    </div>
 
-    <label>パスワード（確認用）</label>
-    <input type="password" name="password_confirmation" required>
+    {{-- メール --}}
+    <div class="form-group">
+      <label for="email">メールアドレス</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value="{{ old('email') }}"
+      >
+    </div>
 
-    <button type="submit">登録</button>
-</form>
+    {{-- パスワード --}}
+    <div class="form-group">
+      <label for="password">パスワード</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+      >
+    </div>
+
+    {{-- ボタン --}}
+    <div class="form-button">
+      <button type="submit">登録</button>
+    </div>
+
+  </form>
+
+</div>
+
 @endsection

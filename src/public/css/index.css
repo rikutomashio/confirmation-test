@@ -17,72 +17,100 @@
     font-size: 24px;
 }
 
+/* =========================
+   共通フォームスタイル
+========================= */
 .contact-form__content {
+    max-width: 800px;
     margin: 0 auto;
-    padding: 30px 15px;
-    max-width: 1230px;
+    padding: 40px 20px;
 }
 
 .contact-form__heading {
-    margin-bottom: 40px;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .form {
-    margin: 0 auto;
-    width: 70%;
-    text-align: center;
+    width: 100%;
 }
 
 .form__group {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    /* 幅不足時に折り返す */
 }
 
-.form__label--required {
-    margin-left: 5px;
-    padding: 4px 6px;
-    border-radius: 3px;
-    background: #fafafa;
-    color: #aaa;
+.form__group-title {
+    width: 200px;
+    text-align: right;
+    padding-right: 20px;
+    flex-shrink: 0;
 }
 
-.form__error {
-    height: 20px;
-    color: #ff0000;
-    text-align: left;
+.form__group-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .form__input--text input,
-.form__input--textarea textarea {
-    padding: 10px;
-    width: 600px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-
-    appearance: none;
+.form__input--textarea textarea,
+.form__input--select select,
+.form__input--radio,
+.form__input--tel {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 10px;
 }
 
-.form__input--text input {
-    height: 40px;
+/* 横並び用 */
+.form__group-content--horizontal {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }
 
-.form__input--textarea textarea {
-    height: 180px;
+.form__group-content--horizontal input,
+.form__group-content--horizontal label {
+    flex: 1;
+    /* 均等幅に広げる */
 }
 
-.form__button {
-    margin-top: 30px;
+/* エラー表示 */
+.form__error {
+    color: red;
+    margin-top: 5px;
+    text-align: left;
 }
 
-.form__button-submit {
-    padding: 10px;
-    width: 30%;
-    height: 50px;
-    border: none;
-    border-radius: 3px;
-    background: #000;
-    color: #fff;
-    cursor: pointer;
+/* ボタン */
+button {
+    display: block;
+    margin: 30px auto 0;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+    .form__group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form__group-title {
+        width: 100%;
+        text-align: left;
+        padding-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .form__group-content--horizontal {
+        flex-direction: column;
+    }
 }

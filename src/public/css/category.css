@@ -1,129 +1,190 @@
-.category__alert--success {
-    padding: 10px 30px;
-    border-color: #badbcc;
-    background-color: #d1e7dd;
-    color: #0f5132;
+/* =========================
+   管理画面 共通レイアウト
+========================= */
+
+/* 管理画面背景 */
+body.admin {
+    background: #fff;
 }
 
-.category__alert--danger {
-    padding: 10px 0;
-    border-color: #f5c2c7;
-    background-color: #f8d7da;
-    color: #842029;
-}
-
-.category__alert--danger ul {
-    margin: 0;
-}
+/* =========================
+   コンテンツ中央寄せ
+========================= */
 
 .category__content {
-    margin: 0 auto;
-    padding: 60px 15px;
     max-width: 1230px;
-}
-
-.create-form {
-    display: flex;
-    justify-content: space-between;
     margin: 0 auto;
-    width: 70%;
-    text-align: center;
+    padding: 40px 20px;
 }
 
-.create-form__item {
-    width: 70%;
+/* =========================
+   見出し
+========================= */
+
+.category__heading {
+    margin-bottom: 24px;
 }
 
-.create-form__item-input {
-    padding: 10px;
-    width: 100%;
-    height: 40px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-}
-
-.create-form__button {
-    width: 20%;
-}
-
-.create-form__button-submit {
-    padding: 10px;
-    width: 100%;
-    height: 40px;
-    border: none;
-    border-radius: 3px;
-    background: #000;
-    color: #fff;
-    cursor: pointer;
-}
-
-.category-table {
-    margin: 30px auto;
-    width: 70%;
-    text-align: center;
-}
-
-.category-table__inner {
-    width: 100%;
-}
-
-.category-table__row {
-    border-bottom: 1px solid #ddd;
-}
-
-.category-table__header {
-    padding: 12px;
-    width: 20%;
-    text-align: left;
+.category__heading h2 {
+    font-size: 24px;
     font-weight: bold;
 }
 
-.category-table__item:first-of-type {
-    padding: 12px;
-    width: 90%;
+/* =========================
+   検索エリア
+========================= */
+
+.category__top {
+    margin-bottom: 24px;
 }
 
-.update-form {
+/* 検索ブロック */
+.category__search {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.category__search h3 {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 検索フォーム横並び */
+.search-form {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-.update-form__item {
-    width: 80%;
-    line-height: 50%;
+/* 入力エリア */
+.search-form__item {
+    display: flex;
+    gap: 10px;
 }
 
-.update-form__item-input {
-    width: 100%;
-    outline: none;
-    border: none;
+.search-form__item input,
+.search-form__item select {
+    height: 38px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
 }
 
-.update-form__button {
-    width: 50px;
+/* ボタンエリア */
+.search-form__button {
+    display: flex;
+    gap: 10px;
 }
 
-.update-form__button-submit {
-    padding: 5px;
-    width: 100%;
-    border: none;
-    border-radius: 3px;
-    background: #0000ff;
+.search-form__button button {
+    height: 38px;
+    padding: 0 18px;
+    background: #000;
     color: #fff;
+    border: none;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.delete-form__button {
-    width: 50px;
+.search-form__button button:hover {
+    opacity: 0.8;
 }
 
-.delete-form__button-submit {
-    padding: 5px;
-    width: 100%;
-    border: none;
-    border-radius: 3px;
-    background: #ff0000;
+/* =========================
+   エクスポート
+========================= */
+
+.search-form__export a {
+    display: inline-block;
+    background: #000;
     color: #fff;
+    padding: 8px 16px;
+    font-size: 14px;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.search-form__export a:hover {
+    opacity: 0.8;
+}
+
+/* =========================
+   テーブル
+========================= */
+
+.category-table__inner {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+}
+
+.category-table__row th {
+    background: #f5f5f5;
+    font-weight: bold;
+}
+
+.category-table__row th,
+.category-table__row td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.category-table__row:hover td {
+    background: #fafafa;
+}
+
+/* 操作リンク */
+.category-table__inner a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+/* 削除ボタン */
+.category-table__inner form button {
+    background: none;
+    border: none;
+    color: #d00;
     cursor: pointer;
+}
+
+/* =========================
+   ページネーション
+========================= */
+
+.pagination {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+/* =========================
+   レスポンシブ
+========================= */
+
+@media (max-width: 768px) {
+
+    .search-form {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .search-form__item {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-form__item input,
+    .search-form__item select {
+        width: 100%;
+    }
+
+    .search-form__button {
+        width: 100%;
+        justify-content: center;
+    }
 }
