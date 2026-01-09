@@ -42,7 +42,7 @@ Laravelを用いて作成したお問い合わせフォームアプリケーシ�
 
 ```bash
 git clone https://github.com/ユーザー名/confirmation-test.git
-cd confirmation-test
+cd confirmation-test/src
 ```
 
 ### 2. Composer インストール
