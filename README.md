@@ -79,10 +79,10 @@ DB_PASSWORD=laravel_pass
 php artisan migrate
 ```
 
-### 5. ローカルサーバー起動
+### 5. シーディングの実行
 
 ```bash
-php artisan serve
+php artisan db:seed
 ```
 
 ---
