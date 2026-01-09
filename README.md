@@ -48,6 +48,7 @@ cd confirmation-test
 ### 2. Composer インストール
 
 ```bash
+brew install composer
 composer install
 ```
 
