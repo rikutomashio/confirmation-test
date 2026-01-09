@@ -27,13 +27,13 @@ Laravelを用いて作成したお問い合わせフォームアプリケーシ�
 
 ## 使用技術
 
- Laravel 8.83.8
- PHP（Docker）
- MySQL 8.0
- nginx
- phpMyAdmin
- Docker / Docker Compose
- macOS
+ * Laravel 8.83.8
+ * PHP（Docker）
+ * MySQL 8.0
+ * nginx
+ * phpMyAdmin
+ * Docker / Docker Compose
+ * macOS
 
 ※ PHP 8.2 以上では動作しません
 
@@ -51,7 +51,7 @@ cd confirmation-test/src
 ### 2. Composer インストール
 
 ```bash
-brew install composer
+docker exec -it confirmation-test-php-1 bash
 composer install
 ```
 
