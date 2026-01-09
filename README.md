@@ -27,12 +27,16 @@ Laravelを用いて作成したお問い合わせフォームアプリケーシ�
 
 ## 使用技術
 
-* PHP 8.x
+* PHP 8.1
 * Laravel 10.x
 * MySQL
 * Blade（テンプレートエンジン）
 * HTML / CSS
 * Git / GitHub
+* Composer 2.x
+* Docker（使用する場合）
+
+※ PHP 8.2 以上では動作しません
 
 ---
 
