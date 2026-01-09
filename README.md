@@ -27,14 +27,13 @@ Laravelを用いて作成したお問い合わせフォームアプリケーシ�
 
 ## 使用技術
 
-* PHP 8.1
-* Laravel 10.x
-* MySQL
-* Blade（テンプレートエンジン）
-* HTML / CSS
-* Git / GitHub
-* Composer 2.x
-* Docker（使用する場合）
+ Laravel 8.83.8
+ PHP（Docker）
+ MySQL 8.0
+ nginx
+ phpMyAdmin
+ Docker / Docker Compose
+ macOS
 
 ※ PHP 8.2 以上では動作しません
 
